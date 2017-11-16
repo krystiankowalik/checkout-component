@@ -1,6 +1,5 @@
 package com.github.krystiankowalik.model.item;
 
-import com.sun.istack.internal.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,9 +21,7 @@ public class Item {
     private String name;
 
     private BigDecimal regularPrice;
-    /*
-     * May be weight units!
-     * */
+
     private int minUnitsToApplyDiscount;
     private BigDecimal discountPrice;
 

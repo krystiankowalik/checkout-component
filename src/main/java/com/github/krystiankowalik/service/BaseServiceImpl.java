@@ -1,13 +1,11 @@
 package com.github.krystiankowalik.service;
 
-import com.github.krystiankowalik.model.item.Item;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 
-public class BaseServiceImpl<T> implements BaseService<T> {
+public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
     private JpaRepository<T, Long> dao;
 

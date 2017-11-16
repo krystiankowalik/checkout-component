@@ -21,9 +21,7 @@ public class SwaggerConfig {
                 .directModelSubstitute(LocalDate.class, String.class)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.github.krystiankowalik"))
-                //.paths(not(PathSelectors.regex("/error")))
                 .paths(not(PathSelectors.regex("/")))
-                //.paths(PathSelectors.any())
                 .build();
     }
 }
