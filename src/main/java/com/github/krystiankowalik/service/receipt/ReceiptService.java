@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @Transactional
@@ -28,8 +29,21 @@ public class ReceiptService extends BaseServiceImpl<Receipt> {
     }
 
     public Receipt openNewReceipt() {
-        return save(new Receipt(0, null));
+        return save(new Receipt(0, null, BigDecimal.ZERO));
     }
 
+    @Override
+    public Receipt get(long id) {
+        Receipt receipt = super.get(id);
+        receipt.setTotalPrice(getTotalPrice(receipt.getId()));
+        return receipt;
+    }
 
+    @Override
+    public List<Receipt> getAll() {
+
+        List<Receipt> allReceipts = super.getAll();
+        allReceipts.forEach(r -> r.setTotalPrice(getTotalPrice(r.getId())));
+        return allReceipts;
+    }
 }

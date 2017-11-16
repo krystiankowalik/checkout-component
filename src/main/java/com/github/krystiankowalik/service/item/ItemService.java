@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 
 @Service
 @Transactional
@@ -15,21 +14,9 @@ import java.math.BigDecimal;
 public class ItemService extends BaseServiceImpl<Item> {
 
 
-    private ItemDao itemDao;
-
     @Autowired
     public ItemService(ItemDao dao) {
-
         super(dao);
-        this.itemDao = dao;
-    }
-
-    public BigDecimal getPriceByBarCode(long barCode) {
-        return itemDao.getByBarCode(barCode).getRegularPrice();
-    }
-
-    public Item getItemByBarCode(long barCode) {
-        return itemDao.getByBarCode(barCode);
     }
 
     public Item saveIfAbsent(Item item) {

@@ -26,7 +26,6 @@ public class ReceiptEntry {
     private BigDecimal units;
 
     @JsonIgnore
-    //@Setter(onMethod = @_(@JsonBackReference("receipt_receiptEnries")))
     @ManyToOne
     private Receipt receipt;
 

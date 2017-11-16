@@ -23,13 +23,8 @@ public class Receipt {
     @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL)
     private List<ReceiptEntry> receiptEntries;
 
+    @Transient
+    private BigDecimal totalPrice;
 
-    public void addReceiptEntries(List<ReceiptEntry> receiptEntries) {
-        this.receiptEntries.addAll(receiptEntries);
-    }
-
-    public void addReceiptEntry(ReceiptEntry receiptEntry) {
-        this.receiptEntries.add(receiptEntry);
-    }
 
 }

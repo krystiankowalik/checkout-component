@@ -21,14 +21,11 @@ public class Item {
 
     private String name;
 
-    @Column(unique = true)
-    private long barCode;
-
     private BigDecimal regularPrice;
     /*
      * May be weight units!
      * */
-    private BigDecimal minUnitsToApplyDiscount;
+    private int minUnitsToApplyDiscount;
     private BigDecimal discountPrice;
 
 

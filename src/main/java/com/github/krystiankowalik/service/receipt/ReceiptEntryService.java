@@ -24,7 +24,7 @@ public class ReceiptEntryService extends BaseServiceImpl<ReceiptEntry> {
     }
 
     public ReceiptEntry addItemToReceiptEntry(final Item item, final Receipt receipt) {
-        ReceiptEntry receiptEntry = receiptEntryDao.findByReceiptId(receipt.getId());
+        ReceiptEntry receiptEntry = receiptEntryDao.findByReceiptIdAndItemId(receipt.getId(),item.getId());
         if (receiptEntry != null) {
             receiptEntry.incrementUnits();
         } else {

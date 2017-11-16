@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReceiptEntryDao extends JpaRepository<ReceiptEntry, Long> {
 
-    ReceiptEntry findByReceiptId(long receiptId);
+    ReceiptEntry findByReceiptIdAndItemId(long receiptId,long itemId);
 
 }

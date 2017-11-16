@@ -9,6 +9,4 @@ import java.math.BigDecimal;
 @Repository
 public interface ItemDao extends JpaRepository<Item, Long> {
 
-    Item getByBarCode(long barCode);
-
 }
