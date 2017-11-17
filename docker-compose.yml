@@ -1,0 +1,19 @@
+# Use postgres/example user/password credentials
+version: '2.0'
+
+services:
+
+    app:
+        build: ./
+        ports:
+            - "8080:8080"
+#        volumes:
+#            - ./target/checkout-component-0.1.0.jar:/app.jar
+        depends_on:
+          - db
+
+    db:
+        image: postgres
+        environment:
+            POSTGRES_PASSWORD: example
+        hostname: app
