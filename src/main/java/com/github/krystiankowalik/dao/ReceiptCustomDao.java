@@ -19,14 +19,33 @@ public class ReceiptCustomDao {
         this.entityManager = entityManager;
     }
 
-    public BigDecimal getTotalPrice(long receiptId) {
-        return (BigDecimal) entityManager.createNativeQuery(
+    public BigDecimal getRegularPriceTotal(long receiptId) {
+        BigDecimal price = (BigDecimal) entityManager.createNativeQuery(
                 "SELECT sum(i.regularprice * re.units)\n" +
                         " FROM receipt_entries re\n" +
                         " JOIN items i ON re.item_id = i.id\n" +
                         " JOIN receipts r ON re.receipt_id = r.id\n" +
-                        " WHERE r.id=1\n" +
+                        " WHERE r.id=" + receiptId + "\n" +
                         " AND\n" +
                         "      re.units < i.minunitstoapplydiscount").getSingleResult();
+        return price != null ? price : BigDecimal.ZERO;
     }
+
+    public BigDecimal getDiscountPriceTotal(long receiptId) {
+        BigDecimal price = (BigDecimal) entityManager.createNativeQuery(
+                "SELECT sum(i.discountprice* re.units)\n" +
+                        " FROM receipt_entries re\n" +
+                        " JOIN items i ON re.item_id = i.id\n" +
+                        " JOIN receipts r ON re.receipt_id = r.id\n" +
+                        " WHERE r.id=" + receiptId + "\n" +
+                        " AND\n" +
+                        "      re.units >= i.minunitstoapplydiscount").getSingleResult();
+        return price != null ? price : BigDecimal.ZERO;
+
+    }
+
+    public BigDecimal getTotalPrice(long receiptId) {
+        return getRegularPriceTotal(receiptId).add(getDiscountPriceTotal(receiptId));
+    }
+
 }

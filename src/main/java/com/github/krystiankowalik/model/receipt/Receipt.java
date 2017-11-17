@@ -1,8 +1,8 @@
 package com.github.krystiankowalik.model.receipt;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,12 +16,20 @@ public class Receipt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private long id;
 
-    @OneToMany(mappedBy = "item")
+    @Setter(onMethod = @_(@JsonManagedReference("receipt_receiptEntries")))
+    @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL)
     private List<ReceiptEntry> receiptEntries;
 
-    @Transient
-    private BigDecimal total;
+
+    public void addReceiptEntries(List<ReceiptEntry> receiptEntries) {
+        this.receiptEntries.addAll(receiptEntries);
+    }
+
+    public void addReceiptEntry(ReceiptEntry receiptEntry) {
+        this.receiptEntries.add(receiptEntry);
+    }
 
 }

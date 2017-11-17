@@ -1,23 +1,42 @@
 package com.github.krystiankowalik.service.item;
 
-import com.github.krystiankowalik.model.dao.ItemDao;
+import com.github.krystiankowalik.dao.ItemDao;
 import com.github.krystiankowalik.model.item.Item;
-import com.github.krystiankowalik.service.BaseService;
+import com.github.krystiankowalik.service.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.math.BigDecimal;
 
 @Service
 @Transactional
-public class ItemService extends BaseService<Item> {
+
+public class ItemService extends BaseServiceImpl<Item> {
 
 
-    public ItemService(JpaRepository<Item, Long> dao) {
+    private ItemDao itemDao;
+
+    @Autowired
+    public ItemService(ItemDao dao) {
+
         super(dao);
+        this.itemDao = dao;
     }
 
+    public BigDecimal getPriceByBarCode(long barCode) {
+        return itemDao.getByBarCode(barCode).getRegularPrice();
+    }
+
+    public Item getItemByBarCode(long barCode) {
+        return itemDao.getByBarCode(barCode);
+    }
+
+    public Item saveIfAbsent(Item item) {
+        if (get(item.getId()) == null) {
+            item = save(item);
+        }
+        return item;
+    }
 
 }

@@ -16,10 +16,12 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true)
     private long id;
 
     private String name;
 
+    @Column(unique = true)
     private long barCode;
 
     private BigDecimal regularPrice;
