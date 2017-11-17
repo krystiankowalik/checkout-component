@@ -1,11 +1,8 @@
 buildscript {
     ext {
-        hibernateVersion = '5.2.10.Final'
-        springVersion = '4.3.12.RELEASE'
         springBootVersion = '1.5.8.RELEASE'
         postgresqlVersion = '9.4-1201-jdbc41'
         swaggerVersion = '2.7.0'
-        mysqlVersion = '5.1.6'
     }
 
     repositories {
@@ -13,11 +10,9 @@ buildscript {
         jcenter()
         maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/milestone" }
-//        url "https://plugins.gradle.org/m2/"
     }
     dependencies {
         classpath('se.transmode.gradle:gradle-docker:1.2')
-        //classpath 'org.codehaus.groovy:groovy-backports-compat23:2.3.5'
     }
 }
 
@@ -28,7 +23,6 @@ plugins {
     id 'io.franzbecker.gradle-lombok' version '1.11'
     id "org.springframework.boot" version '1.5.8.RELEASE'
     id 'application'
-    //id "gradle-docker" version '1.2'
 }
 apply plugin: 'docker'
 apply plugin: 'project-report'
@@ -48,27 +42,19 @@ targetCompatibility = 1.8
 dependencies {
     //Spring Boot
     compile("org.springframework.boot:spring-boot-starter-web")
-  //  compile("org.springframework.boot:spring-boot-starter-jetty")
-    //compile("org.springframework.boot:spring-boot-starter-actuator")
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: "$springBootVersion"
-
-    //Spring
-    //compile group: 'org.springframework', name: 'spring-tx', version: "$springVersion"
-  /*  compile group: 'org.springframework', name: 'spring-jdbc', version: "$springVersion"
-    compile group: 'org.springframework', name: 'spring-orm', version: "$springVersion"*/
-
 
     //Swagger
     compile group: 'io.springfox', name: 'springfox-swagger2', version: "$swaggerVersion"
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "$swaggerVersion"
 
-    //Hibernate + PostgreSQL
-  //  compile "org.hibernate:hibernate-core:$hibernateVersion"
+    //PostgreSql
     compile group: 'org.postgresql', name: 'postgresql', version: "$postgresqlVersion"
-    //compile group: 'mysql', name: 'mysql-connector-java', version: "$mysqlVersion"
 
+    //Docker
     compile 'se.transmode.gradle:gradle-docker:1.2'
 
+    //Tests
     testCompile("junit:junit")
     testCompile 'org.mockito:mockito-core:2.7.22'
 }
